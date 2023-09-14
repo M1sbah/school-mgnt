@@ -1,0 +1,100 @@
+<div class="container">
+	<%= form_with model: teacher do |f| %>
+
+		<div class="row mx-5 mt-3 px-5">
+			<div>
+			    <div class="mb-4 d-flex justify-content-center">
+			    	<div class="card w-25 bg-dark border-0">
+			    		<%= image_tag teacher.image.present? ? teacher.image : 'default1', style:'height:100%;width:100%;', class:"rounded-circle mb-2"%>
+			    		<%= f.file_field :image ,value: :image , class:"form-control"%>
+			    	</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row mx-5 mt-5 px-5">
+			<div class="col">
+				<% if teacher.errors.messages[:name].present? %>
+					<div class="form-control border border-danger border-3">
+				<% else %>
+					<div class="form-control">
+				<% end %>
+				<%= f.text_field :name, placeholder: :Enter_your_Name, class:"form-control"%>
+				</div>
+				<% teacher.errors.full_messages_for(:name).each do |message| %>
+					<p class="text-danger"><%= message %></p>
+				<% end %>
+			</div>
+			<div class="col">
+				<% if teacher.errors.messages[:email].present? %>
+					<div class="form-control border border-danger border-3">
+				<% else %>
+					<div class="form-control">
+				<% end %>
+				<%= f.text_field :email, placeholder: :Enter_your_Email, class:"form-control"%>
+				</div>
+				<% teacher.errors.full_messages_for(:email).each do |message| %>
+						<p class="text-danger"><%= message %></p>
+					<% end %>
+			</div>
+		</div>
+		<div class="row mx-5 mt-3 px-5">
+			<div class="col">
+				<% if teacher.errors.messages[:subject_id].present? %>
+					<div class="form-control border border-danger border-3">
+				<% else %>
+					<div class="form-control">
+				<% end %>
+				<%= f.select :subject_id, options_for_select(Subject.all.map { |subject| [subject.name, subject.id]} , selected: teacher.subject.present? ? teacher.subject.id : teacher.subject), { prompt: 'Select a Subject' }, { class: 'form-select form-select-lg' } %>
+				</div>
+				<% teacher.errors.full_messages_for(:subject_id).each do |message| %>
+						<p class="text-danger"><%= message %></p>
+				<% end %>
+			</div>
+			<div class="col">
+				<% if teacher.errors.messages[:contact].present? %>
+					<div class="form-control border border-danger border-3">
+				<% else %>
+					<div class="form-control">
+				<% end %>
+				<%= f.number_field :contact ,limit: 10, maxlength: 10, placeholder: :Contact , class:"form-control"%>
+				</div>
+				<% teacher.errors.full_messages_for(:contact).each do |message| %>
+						<p class="text-danger"><%= message %></p>
+				<% end %>
+			</div>
+			<div class="col">
+				<div class="form-control">
+					<%= f.number_field :experience, placeholder: :Experience, class:"form-control"%>
+				</div>
+			</div>
+			<% if params[:action] == 'edit' %>
+				<div class="col">
+					<div class="form-control">
+						<%= f.number_field :salary, placeholder: :Salary, class:"form-control"%>
+					</div>
+				</div>
+			<% end %>
+		</div>
+		<div class="row mx-5 mt-3 px-5">
+			<div class="col">
+				<% if teacher.errors.messages[:address].present? %>
+					<div class="form-control border border-danger border-3">
+				<% else %>
+					<div class="form-control">
+				<% end %>
+				<%= f.text_field :address, placeholder: :Address, class:"form-control"%>
+				</div>
+				<% teacher.errors.full_messages_for(:address).each do |message| %>
+						<p class="text-danger"><%= message %></p>
+				<% end %>
+			</div>
+		</div>
+		<div class="row mx-5 mt-3 px-5">
+			<div class="col">
+				<%= f.submit class:"btn btn-primary w-25" %>
+				<%= link_to :Back, teachers_path,class:"btn btn-secondary w-25"%>
+			</div>
+		</div>
+	 <% end %>
+</div>

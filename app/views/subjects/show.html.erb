@@ -1,0 +1,37 @@
+<div class="container">
+	<%= link_to :Back, subjects_path,class:"btn btn-secondary w-25  mt-2 mb-2"%>
+	<div class="row row-cols-3">
+		<% unless @subject.teachers.present? %>
+			<%= image_tag "no_result", style:'height:800px;width:100%;' %>
+			
+		<% end  %>
+		<% @teachers.each do |teacher| %>
+			<div class="col mt-3">
+				<a class="text-decoration-none" href="<%= teacher_path(teacher)%>">
+					<div class="card border-primary bg-secondary h-100 w-100">
+						<div class="card-title text-center">
+							<h1><%= teacher.name%></h1>
+						</div>
+						<div class="card-body d-flex flex-row">
+							<div class="col mx-2">
+								<h3><%= teacher.email%></h3>
+								<h3><%= teacher.subject.name%></h3>
+								<h3><%= teacher.contact%></h3>
+							</div>
+							<div class="col mx-3">
+								<% if teacher.image.attached?%>
+									<%= image_tag teacher.image, style:'height:100%;width:100%;',class:"rounded-circle" %>
+								<% else %>
+									<%= image_tag 'default1', style:'height:100%;width:100%;', class:"rounded-circle" %>
+								<% end %>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+		<% end %>
+	</div>
+	<div class="mt-3">
+		<%= paginate @teachers %>
+	</div>
+</div>

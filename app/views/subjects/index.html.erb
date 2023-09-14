@@ -1,0 +1,27 @@
+<div class="container-fluid mx-5 my-5">
+	<div class="row row-cols-2">
+		<div class="col-lg-3">
+			<%= render "form", subject: @subject %>
+		</div>
+		<div class="col-lg-8">
+			<table class="table table-secondary">
+
+				<thead class="table table-secondary border border-success mb-3 text-center">
+					<th>Subject Name </th>
+					<th>Subject Teacher </th>
+				</thead>
+				<tbody class="text-center">
+					<% @subjects.each do |subject| %>
+						<tr>
+							<td><%= subject.name%></td>
+							<td>
+								<%= link_to 'View', subject %>		
+								(<%= subject.teachers.count %>)
+							</td>
+						</tr>
+					<%end%>		
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
